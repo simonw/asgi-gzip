@@ -38,6 +38,8 @@ The GitHub repository for this library uses [Git scraping](https://simonwillison
 
 Any time a change to that file is detected, an issue will be automatically created in the repository. This issue should be closed once the change to Starlette has been applied here, if necessary.
 
+For more details on how this works, see [Automatically opening issues when tracked file content changes](https://simonwillison.net/2022/Apr/28/issue-on-changes/).
+
 ## Development
 
 To contribute to this library, first checkout the code. Then create a new virtual environment:
