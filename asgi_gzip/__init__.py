@@ -2,7 +2,7 @@ import gzip
 import io
 import typing
 
-from starlette.datastructures import Headers, MutableHeaders
+from .headers import Headers, MutableHeaders
 
 
 class GZipMiddleware:
