@@ -14,7 +14,21 @@ Install this library using `pip`:
 
 ## Usage
 
-Usage instructions go here.
+```python
+from asgi_gzip import GZipMiddleware
+from my_asgi_app import app
+
+gzip_app = GZipMiddleware(app)
+```
+Consult the [Starlette GZipMiddleware documentation](https://www.starlette.io/middleware/#gzipmiddleware) for full details.
+
+## Should you use this package?
+
+This package exists purely for use by ASGI applications that want to add gzip support without adding the whole of [Starlette](https://www.starlette.io/) as a dependency.
+
+But... Starlette is actually a very light dependency! It's a small codebase and it only depends on two other small libraries - check its `install_requires` in the Starlette [setup.py module](https://github.com/encode/starlette/blob/master/setup.py).
+
+So if you don't mind adding Starlette as a dependency, you should consider using that directly instead.
 
 ## Tracking Starlette
 
@@ -29,7 +43,7 @@ Any time a change to that file is detected, an issue will be automatically creat
 To contribute to this library, first checkout the code. Then create a new virtual environment:
 
     cd asgi-gzip
-    python -mvenv venv
+    python -m venv venv
     source venv/bin/activate
 
 Now install the dependencies and test dependencies:
