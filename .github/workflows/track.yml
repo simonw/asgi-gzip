@@ -1,0 +1,54 @@
+name: Track the Starlette version of this
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+  - cron:  '21 5 * * *'
+
+permissions:
+  issues: write
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/github-script@v6
+      env:
+        URL: https://raw.githubusercontent.com/encode/starlette/master/starlette/middleware/gzip.py
+        FILE_NAME: tracking/gzip.py
+      with:
+        script: |
+          const { URL, FILE_NAME } = process.env;
+          const util = require("util");
+          // Because 'exec' variable name is already used:
+          const exec_ = util.promisify(require("child_process").exec);
+          await exec_(`curl -o ${FILE_NAME} ${URL}`);
+          const { stdout } = await exec_(`git diff ${FILE_NAME}`);
+          if (stdout) {
+            // There was a diff to that file
+            const title = `${FILE_NAME} was updated`;
+            const body =
+              `${URL} changed:` +
+              "\n\n```diff\n" +
+              stdout +
+              "\n```\n\n" +
+              "Close this issue once those changes have been integrated here";
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+            });
+            const issueNumber = issue.data.number;
+            // Now commit and reference that issue
+            const commitMessage = `${FILE_NAME} updated, refs #${issueNumber}`;
+            await exec_(`git config user.name "Automated"`);
+            await exec_(`git config user.email "actions@users.noreply.github.com"`);
+            await exec_(`git add -A`);
+            await exec_(`git commit -m "${commitMessage}" || exit 0`);
+            await exec_(`git pull --rebase`);
+            await exec_(`git push`);
+          }

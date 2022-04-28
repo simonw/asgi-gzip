@@ -16,6 +16,14 @@ Install this library using `pip`:
 
 Usage instructions go here.
 
+## Tracking Starlette
+
+Since this code is extracted from Starlette, it's important to keep watch for changes and bug fixes to the Starlette implementation that should be replicated here.
+
+The GitHub repository for this library uses [Git scraping](https://simonwillison.net/2020/Oct/9/git-scraping/) to track changes to a copy of the Starlette `gzip.py` module, which is kept in the `tracking/` folder.
+
+Any time a change to that file is detected, an issue will be automatically created in the repository. This issue should be closed once the change to Starlette has been applied here, if necessary.
+
 ## Development
 
 To contribute to this library, first checkout the code. Then create a new virtual environment:
