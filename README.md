@@ -2,7 +2,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/asgi-gzip.svg)](https://pypi.org/project/asgi-gzip/)
 [![Changelog](https://img.shields.io/github/v/release/simonw/asgi-gzip?include_prereleases&label=changelog)](https://github.com/simonw/asgi-gzip/releases)
-[![License](https://img.shields.io/pypi/l/asgi-gzip)](https://github.com/simonw/asgi-gzip/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://github.com/simonw/asgi-gzip/blob/main/LICENSE)
 
 gzip middleware for ASGI applications, extracted from Starlette
 
