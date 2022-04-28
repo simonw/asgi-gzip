@@ -24,7 +24,7 @@ setup(
         "CI": "https://github.com/simonw/asgi-gzip/actions",
         "Changelog": "https://github.com/simonw/asgi-gzip/releases",
     },
-    license="Apache License, Version 2.0",
+    license="BSD",
     version=VERSION,
     packages=["asgi_gzip"],
     install_requires=[],
