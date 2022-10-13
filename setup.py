@@ -28,6 +28,6 @@ setup(
     version=VERSION,
     packages=["asgi_gzip"],
     install_requires=[],
-    extras_require={"test": ["pytest", "starlette", "requests", "trio"]},
+    extras_require={"test": ["pytest", "starlette", "requests", "trio", "httpx"]},
     python_requires=">=3.7",
 )
