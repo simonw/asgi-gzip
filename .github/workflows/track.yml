@@ -14,7 +14,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: actions/github-script@v6
       env:
         URL: https://raw.githubusercontent.com/encode/starlette/master/starlette/middleware/gzip.py
