@@ -1,6 +1,6 @@
 [project]
 name = "asgi-gzip"
-version = "0.2"
+version = "0.3"
 description = "gzip middleware for ASGI applications, extracted from Starlette"
 readme = "README.md"
 authors = [{name = "Simon Willison"}]
