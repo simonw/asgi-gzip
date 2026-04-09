@@ -1,0 +1,29 @@
+[project]
+name = "asgi-gzip"
+version = "0.2"
+description = "gzip middleware for ASGI applications, extracted from Starlette"
+readme = "README.md"
+authors = [{name = "Simon Willison"}]
+license = "BSD-3-Clause"
+requires-python = ">=3.10"
+
+[project.urls]
+Homepage = "https://github.com/simonw/asgi-gzip"
+Issues = "https://github.com/simonw/asgi-gzip/issues"
+CI = "https://github.com/simonw/asgi-gzip/actions"
+Changelog = "https://github.com/simonw/asgi-gzip/releases"
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "starlette",
+    "trio",
+    "httpx",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.12"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""

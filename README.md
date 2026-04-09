@@ -42,16 +42,7 @@ For more details on how this works, see [Automatically opening issues when track
 
 ## Development
 
-To contribute to this library, first checkout the code. Then create a new virtual environment:
+To contribute to this library, first checkout the code. Then run the tests with `uv`:
 
     cd asgi-gzip
-    python -m venv venv
-    source venv/bin/activate
-
-Now install the dependencies and test dependencies:
-
-    pip install -e '.[test]'
-
-To run the tests:
-
-    pytest
+    uv run pytest
