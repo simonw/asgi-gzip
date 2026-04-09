@@ -2,6 +2,7 @@ from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from asgi_gzip import GZipMiddleware
 from starlette.responses import PlainTextResponse, StreamingResponse
+from starlette.responses import Response
 from starlette.routing import Route
 
 
@@ -100,3 +101,23 @@ def test_gzip_ignored_for_responses_with_encoding_set(test_client_factory):
     assert response.text == "x" * 4000
     assert response.headers["Content-Encoding"] == "br"
     assert "Content-Length" not in response.headers
+
+
+def test_gzip_excluded_for_event_stream(test_client_factory):
+    def homepage(request):
+        return Response(
+            content="data: hello\n\n" * 500,
+            status_code=200,
+            media_type="text/event-stream",
+        )
+
+    app = Starlette(
+        routes=[Route("/", endpoint=homepage)],
+        middleware=[Middleware(GZipMiddleware)],
+    )
+
+    client = test_client_factory(app)
+    response = client.get("/", headers={"accept-encoding": "gzip"})
+    assert response.status_code == 200
+    assert response.text == "data: hello\n\n" * 500
+    assert "Content-Encoding" not in response.headers

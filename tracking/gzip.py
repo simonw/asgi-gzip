@@ -9,7 +9,9 @@ DEFAULT_EXCLUDED_CONTENT_TYPES = ("text/event-stream",)
 
 
 class GZipMiddleware:
-    def __init__(self, app: ASGIApp, minimum_size: int = 500, compresslevel: int = 9) -> None:
+    def __init__(
+        self, app: ASGIApp, minimum_size: int = 500, compresslevel: int = 9
+    ) -> None:
         self.app = app
         self.minimum_size = minimum_size
         self.compresslevel = compresslevel
@@ -22,7 +24,9 @@ class GZipMiddleware:
         headers = Headers(scope=scope)
         responder: ASGIApp
         if "gzip" in headers.get("Accept-Encoding", ""):
-            responder = GZipResponder(self.app, self.minimum_size, compresslevel=self.compresslevel)
+            responder = GZipResponder(
+                self.app, self.minimum_size, compresslevel=self.compresslevel
+            )
         else:
             responder = IdentityResponder(self.app, self.minimum_size)
 
@@ -53,8 +57,12 @@ class IdentityResponder:
             self.initial_message = message
             headers = Headers(raw=self.initial_message["headers"])
             self.content_encoding_set = "content-encoding" in headers
-            self.content_type_is_excluded = headers.get("content-type", "").startswith(DEFAULT_EXCLUDED_CONTENT_TYPES)
-        elif message_type == "http.response.body" and (self.content_encoding_set or self.content_type_is_excluded):
+            self.content_type_is_excluded = headers.get("content-type", "").startswith(
+                DEFAULT_EXCLUDED_CONTENT_TYPES
+            )
+        elif message_type == "http.response.body" and (
+            self.content_encoding_set or self.content_type_is_excluded
+        ):
             if not self.started:
                 self.started = True
                 await self.send(self.initial_message)
@@ -123,7 +131,9 @@ class GZipResponder(IdentityResponder):
         super().__init__(app, minimum_size)
 
         self.gzip_buffer = io.BytesIO()
-        self.gzip_file = gzip.GzipFile(mode="wb", fileobj=self.gzip_buffer, compresslevel=compresslevel)
+        self.gzip_file = gzip.GzipFile(
+            mode="wb", fileobj=self.gzip_buffer, compresslevel=compresslevel
+        )
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         with self.gzip_buffer, self.gzip_file:
