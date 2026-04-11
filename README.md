@@ -26,7 +26,7 @@ Consult the [Starlette GZipMiddleware documentation](https://www.starlette.io/mi
 
 This package exists purely for use by ASGI applications that want to add gzip support without adding the whole of [Starlette](https://www.starlette.io/) as a dependency.
 
-But... Starlette is actually a very light dependency! It's a small codebase and it only depends on two other small libraries - check its `install_requires` in the Starlette [setup.py module](https://github.com/encode/starlette/blob/master/setup.py).
+But... Starlette is actually a very light dependency! It's a small codebase and it only depends on two other small libraries - check its `dependencies` in the Starlette [pyproject.toml file](https://github.com/Kludex/starlette/blob/main/pyproject.toml).
 
 So if you don't mind adding Starlette as a dependency, you should consider using that directly instead.
 
